@@ -78,7 +78,6 @@ E:\Projects\VisualStudio\Rounds\PlayerMarkers\PlayerMarkers\bin\Debug\ByteConver
 E:\Projects\VisualStudio\Rounds\PlayerMarkers\PlayerMarkers\bin\Debug\0Harmony.xml
 E:\Projects\VisualStudio\Rounds\PlayerMarkers\PlayerMarkers\bin\Debug\BepInEx.xml
 E:\Projects\VisualStudio\Rounds\PlayerMarkers\PlayerMarkers\bin\Debug\MonoMod.Utils.xml
-E:\Projects\VisualStudio\Rounds\PlayerMarkers\PlayerMarkers\obj\Debug\PlayerMarkers.csproj.AssemblyReference.cache
 E:\Projects\VisualStudio\Rounds\PlayerMarkers\PlayerMarkers\obj\Debug\PlayerMarkers.csproj.CoreCompileInputs.cache
 E:\Projects\VisualStudio\Rounds\PlayerMarkers\PlayerMarkers\obj\Debug\PlayerMarkers.csproj.CopyComplete
 E:\Projects\VisualStudio\Rounds\PlayerMarkers\PlayerMarkers\bin\Debug\PlayerMarkers.dll
