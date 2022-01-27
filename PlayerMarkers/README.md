@@ -8,5 +8,7 @@
 </p>
 
 ## Versions
+- 1.1.0
+  - Added settings for own, team and enemy markers
 - 1.0.0
   - Initial release, no options just a marker above your player

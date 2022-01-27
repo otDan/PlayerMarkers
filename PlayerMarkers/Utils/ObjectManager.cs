@@ -37,11 +37,11 @@ namespace GameEnhancementCards.Utils
             return mesh;
         }
 
-        public static GameObject CreateObject(Color color)
+        public static GameObject CreateObject(string name, Color color)
         {
             var mesh = CreateMesh();
 
-            var obj = new GameObject("Marker");
+            var obj = new GameObject(name);
 
             var filter = obj.AddComponent<MeshFilter>();
             filter.sharedMesh = mesh;
