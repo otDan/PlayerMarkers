@@ -8,6 +8,11 @@
 </p>
 
 ## Versions
+- 1.1.1
+  - Set mod as only client-side
+  - Project restructure
+  - Render on top of every object
+  - Fix markers not being visible in some situations
 - 1.1.0
   - Added settings for own, team and enemy markers
 - 1.0.0

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PlayerMarkers.Menu;
+using PlayerMarkers.Util;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ using UnboundLib.Extensions;
 using UnboundLib.GameModes;
 using UnityEngine;
 
-namespace GameEnhancementCards.Utils
+namespace GameEnhancementCards.Util
 {
     public static class GameActions
     {
@@ -18,41 +20,41 @@ namespace GameEnhancementCards.Utils
         {
             try
             {
-                PlayerMarkers.inGame = true;
+                MenuManager.inGame = true;
                 var myPlayers = PlayerManager.instance.players.Where(p => p.data.view.IsMine);
                 foreach (Player player in myPlayers)
                 {
-                    if (PlayerMarkers.ownMarkerEnabled)
+                    if (ConfigManager.OwnEnabledConfig.Value)
                     {
                         var markerObject = ObjectManager.CreateObject("PlayerMarker", player.GetTeamColors().color);
                         markerObject.transform.SetParent(player.gameObject.transform);
-                        markerObject.transform.localPosition = new Vector3(0, 2, 0);
-                        markerObject.transform.localScale = new Vector3(PlayerMarkers.ownMarkerSize.x, PlayerMarkers.ownMarkerSize.y, 0.75f);
+                        markerObject.transform.localPosition = new Vector3(0, 2, -10);
+                        markerObject.transform.localScale = new Vector3(MenuManager.ownMarkerSize.x, MenuManager.ownMarkerSize.y, 0.75f);
                         markerObject.transform.localRotation = Quaternion.Euler(0, 180, 180);
                     }
 
-                    if (PlayerMarkers.teamMarkerEnabled)
+                    if (ConfigManager.TeamEnabledConfig.Value)
                     {
                         var teamPlayers = PlayerManager.instance.players.Where(p => p.teamID == player.teamID && p.playerID != player.playerID);
                         foreach (Player teamPlayer in teamPlayers)
                         {
                             var markerObject = ObjectManager.CreateObject("TeamMarker", teamPlayer.GetTeamColors().color);
                             markerObject.transform.SetParent(teamPlayer.gameObject.transform);
-                            markerObject.transform.localPosition = new Vector3(0, 2, 0);
-                            markerObject.transform.localScale = new Vector3(PlayerMarkers.teamMarkerSize.x, PlayerMarkers.teamMarkerSize.y, 0.75f);
+                            markerObject.transform.localPosition = new Vector3(0, 2, -10);
+                            markerObject.transform.localScale = new Vector3(MenuManager.teamMarkerSize.x, MenuManager.teamMarkerSize.y, 0.75f);
                             markerObject.transform.localRotation = Quaternion.Euler(0, 180, 180);
                         }
                     }
 
-                    if (PlayerMarkers.enemyMarkerEnabled)
+                    if (ConfigManager.EnemyEnabledConfig.Value)
                     {
-                        var enemyPlayers = PlayerManager.instance.players.Where(p => p.teamID != player.teamID);
+                        var enemyPlayers = PlayerManager.instance.players.Where(p => p.teamID != player.teamID && !p.data.view.IsMine);
                         foreach (Player enemyPlayer in enemyPlayers)
                         {
                             var markerObject = ObjectManager.CreateObject("EnemyMarker", enemyPlayer.GetTeamColors().color);
                             markerObject.transform.SetParent(enemyPlayer.gameObject.transform);
-                            markerObject.transform.localPosition = new Vector3(0, 2, 0);
-                            markerObject.transform.localScale = new Vector3(PlayerMarkers.enemyMarkerSize.x, PlayerMarkers.enemyMarkerSize.y, 0.75f);
+                            markerObject.transform.localPosition = new Vector3(0, 2, -10);
+                            markerObject.transform.localScale = new Vector3(MenuManager.enemyMarkerSize.x, MenuManager.enemyMarkerSize.y, 0.75f);
                             markerObject.transform.localRotation = Quaternion.Euler(0, 180, 180);
                         }
                     }
@@ -70,7 +72,7 @@ namespace GameEnhancementCards.Utils
         {
             try
             {
-                PlayerMarkers.inGame = false;
+                MenuManager.inGame = false;
                 var myPlayers = PlayerManager.instance.players.Where(p => p.data.view.IsMine);
                 foreach (Player player in myPlayers)
                 {

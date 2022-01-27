@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.ProceduralImage;
 
-namespace GameEnhancementCards.Utils
+namespace GameEnhancementCards.Util
 {
     public static class ObjectManager
     {
