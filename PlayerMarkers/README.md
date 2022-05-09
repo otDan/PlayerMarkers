@@ -8,6 +8,10 @@
 </p>
 
 ## Versions
+- 2.0.0
+  - Restructured project
+  - Bloom intensity setting
+  - Marker types setting
 - 1.1.1
   - Set mod as only client-side
   - Project restructure

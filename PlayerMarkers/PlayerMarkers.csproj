@@ -83,19 +83,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Menu\MenuManager.cs" />
+    <Compile Include="Asset\AssetManager.cs" />
+    <Compile Include="Menu\MenuController.cs" />
     <Compile Include="Menu\Impl\EnemyMarker.cs" />
     <Compile Include="Menu\Impl\GeneralSettings.cs" />
     <Compile Include="Menu\Impl\OwnMarker.cs" />
     <Compile Include="Menu\Impl\TeamMarker.cs" />
     <Compile Include="PlayerMarkers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\ConfigManager.cs" />
-    <Compile Include="Util\ObjectManager.cs" />
+    <Compile Include="Util\ConfigController.cs" />
+    <Compile Include="Util\MarkerController.cs" />
     <Compile Include="Util\GameActions.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Asset\playermarkers_assets" />
     <None Include="manifest.json" />
     <None Include="README.md" />
   </ItemGroup>

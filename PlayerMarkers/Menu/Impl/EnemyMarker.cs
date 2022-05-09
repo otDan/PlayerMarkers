@@ -1,30 +1,25 @@
 ﻿using PlayerMarkers.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TMPro;
 using UnboundLib;
 using UnboundLib.Utils.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PlayerMarkers.Menu
+namespace PlayerMarkers.Menu.Impl
 {
     public static class EnemyMarker
     {
         internal static void Menu(GameObject menu)
         {
             var enemyMarkerText = MenuHandler.CreateText("Enemy Marker", menu, out TextMeshProUGUI _, 60);
-            Unbound.Instance.StartCoroutine(MenuManager.FindScaler(enemyMarkerText.transform, MenuManager.MarkerType.ENEMY));
+            Unbound.Instance.StartCoroutine(MenuController.FindScaler(enemyMarkerText.transform, MenuController.MarkerOwner.Enemy));
 
             void EnabledChanged(bool val)
             {
-                ConfigManager.EnemyEnabledConfig.Value = val;
-                MenuManager.enemyMarkerEnabled = ConfigManager.EnemyEnabledConfig.Value;
+                ConfigController.EnemyEnabledConfig.Value = val;
+                MenuController.enemyMarkerEnabled = ConfigController.EnemyEnabledConfig.Value;
             }
-            var markerToggle = MenuHandler.CreateToggle(ConfigManager.EnemyEnabledConfig.Value, "Marker Enabled", menu, EnabledChanged, 30);
+            var markerToggle = MenuHandler.CreateToggle(ConfigController.EnemyEnabledConfig.Value, "Marker Enabled", menu, EnabledChanged, 30);
 
             MenuHandler.CreateText(" ", menu, out TextMeshProUGUI _, 15);
             MenuHandler.CreateText("Marker Size:", menu, out TextMeshProUGUI _, 25);
@@ -32,28 +27,38 @@ namespace PlayerMarkers.Menu
 
             void HeightChanged(float val)
             {
-                ConfigManager.EnemyHeightConfig.Value = UnityEngine.Mathf.Clamp(val, 0.1f, 1f);
-                MenuManager.enemyMarkerSize.x = ConfigManager.EnemyHeightConfig.Value;
+                ConfigController.EnemyHeightConfig.Value = Mathf.Clamp(val, 0.1f, 1f);
+                MenuController.enemyMarkerSize.x = ConfigController.EnemyHeightConfig.Value;
             }
-            MenuHandler.CreateSlider("Marker height", menu, 25, 0.1f, 1f, ConfigManager.EnemyHeightConfig.Value, HeightChanged, out UnityEngine.UI.Slider heightSlider, false);
+            MenuHandler.CreateSlider("Marker height", menu, 25, 0.1f, 1f, ConfigController.EnemyHeightConfig.Value, HeightChanged, out Slider heightSlider, false);
             MenuHandler.CreateText(" ", menu, out TextMeshProUGUI _, 15);
 
             void WidthChanged(float val)
             {
-                ConfigManager.EnemyWidthConfig.Value = UnityEngine.Mathf.Clamp(val, 0.1f, 1f);
-                MenuManager.enemyMarkerSize.y = ConfigManager.EnemyWidthConfig.Value;
+                ConfigController.EnemyWidthConfig.Value = Mathf.Clamp(val, 0.1f, 1f);
+                MenuController.enemyMarkerSize.y = ConfigController.EnemyWidthConfig.Value;
             }
-            MenuHandler.CreateSlider("Marker width", menu, 25, 0.1f, 1f, ConfigManager.EnemyWidthConfig.Value, WidthChanged, out UnityEngine.UI.Slider widthSlider, false);
+            MenuHandler.CreateSlider("Marker width", menu, 25, 0.1f, 1f, ConfigController.EnemyWidthConfig.Value, WidthChanged, out Slider widthSlider, false);
+            MenuHandler.CreateText(" ", menu, out TextMeshProUGUI _, 15);
+
+            void BloomChanged(float val)
+            {
+                ConfigController.EnemyBloomConfig.Value = Mathf.Clamp(val, 1f, 5f);
+                MenuController.enemyMarkerBloom = ConfigController.EnemyBloomConfig.Value;
+            }
+            MenuHandler.CreateSlider("Marker bloom", menu, 25, 1f, 5f, ConfigController.EnemyBloomConfig.Value, BloomChanged, out Slider bloomSlider, false);
             MenuHandler.CreateText(" ", menu, out TextMeshProUGUI _, 15);
 
             void ResetOptions()
             {
-                EnabledChanged(false);
-                markerToggle.GetComponent<Toggle>().isOn = false;
+                EnabledChanged(true);
+                markerToggle.GetComponent<Toggle>().isOn = true;
                 HeightChanged(0.75f);
                 heightSlider.value = 0.75f;
                 WidthChanged(0.75f);
                 widthSlider.value = 0.75f;
+                BloomChanged(3f);
+                bloomSlider.value = 3f;
             }
             MenuHandler.CreateButton("Reset Options", menu, ResetOptions, 30);
         }

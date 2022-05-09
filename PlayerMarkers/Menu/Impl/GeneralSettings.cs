@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TMPro;
+﻿using TMPro;
 using UnboundLib.Utils.UI;
 using UnityEngine;
 
-namespace PlayerMarkers.Menu
+namespace PlayerMarkers.Menu.Impl
 {
     public static class GeneralSettings
     {

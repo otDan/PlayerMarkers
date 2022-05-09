@@ -9,28 +9,27 @@ using BepInEx.Configuration;
 using Photon.Pun;
 using System.Collections;
 using UnityEngine.UI;
-using GameEnhancementCards.Util;
 using PlayerMarkers.Menu;
 using PlayerMarkers.Util;
 
-namespace GameEnhancementCards
+namespace PlayerMarkers
 {
     // These are the mods required for our mod to work
-    [BepInDependency("com.willis.rounds.unbound", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.willis.rounds.unbound")]
     // Declares our mod to Bepin
     [BepInPlugin(ModId, ModName, Version)]
     // The game our mod is associated with
     [BepInProcess("Rounds.exe")]
     public class PlayerMarkers : BaseUnityPlugin
     {
-        private const string ModId = "ot.dan.rounds.PlayerMarkers";
+        private const string ModId = "ot.dan.rounds.playermarkers";
         private const string ModName = "Player Markers";
-        public const string Version = "1.1.1";
+        public const string Version = "2.0.0";
         public const string ModInitials = "PM";
         private const string CompatibilityModName = "PlayerMarkers";
         public static PlayerMarkers instance { get; private set; }
 
-        void Awake()
+        private void Awake()
         {
             instance = this;
             Unbound.RegisterClientSideMod(ModId);
@@ -42,27 +41,33 @@ namespace GameEnhancementCards
             SetupConfig();
         }
 
-        void Start()
+        private void Start()
         {
             GameModeManager.AddHook(GameModeHooks.HookGameStart, GameActions.GameStart);
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, GameActions.GameEnd);
 
-            MenuManager.Initialize();
+            MenuController.Initialize();
         }
 
-        void SetupConfig()
+        private void SetupConfig()
         {
-            ConfigManager.OwnEnabledConfig = Config.Bind(CompatibilityModName, "OwnEnabled", true, "Own Marker Enabled");
-            ConfigManager.OwnHeightConfig = Config.Bind(CompatibilityModName, "OwnHeight", 0.75f, "Own Marker Height");
-            ConfigManager.OwnWidthConfig = Config.Bind(CompatibilityModName, "OwnWidth", 0.75f, "Own Marker Width");
+            ConfigController.OwnEnabledConfig = Config.Bind(CompatibilityModName, "OwnEnabled", true, "Own Marker Enabled");
+            ConfigController.OwnHeightConfig = Config.Bind(CompatibilityModName, "OwnHeight", 0.55f, "Own Marker Height");
+            ConfigController.OwnWidthConfig = Config.Bind(CompatibilityModName, "OwnWidth", 0.55f, "Own Marker Width");
+            ConfigController.OwnBloomConfig = Config.Bind(CompatibilityModName, "OwnBloom", 3f, "Own Marker Bloom");
+            ConfigController.OwnMarkerTypeConfig = Config.Bind(CompatibilityModName, "OwnMarkerType", 1, "Own Marker Type");
 
-            ConfigManager.TeamEnabledConfig = Config.Bind(CompatibilityModName, "TeamEnabled", true, "Team Marker Enabled");
-            ConfigManager.TeamHeightConfig = Config.Bind(CompatibilityModName, "TeamHeight", 0.75f, "Team Marker Height");
-            ConfigManager.TeamWidthConfig = Config.Bind(CompatibilityModName, "TeamWidth", 0.75f, "Team Marker Width");
+            ConfigController.TeamEnabledConfig = Config.Bind(CompatibilityModName, "TeamEnabled", true, "Team Marker Enabled");
+            ConfigController.TeamHeightConfig = Config.Bind(CompatibilityModName, "TeamHeight", 0.75f, "Team Marker Height");
+            ConfigController.TeamWidthConfig = Config.Bind(CompatibilityModName, "TeamWidth", 0.75f, "Team Marker Width");
+            ConfigController.TeamBloomConfig = Config.Bind(CompatibilityModName, "TeamBloom", 3f, "Team Marker Bloom");
+            ConfigController.TeamMarkerTypeConfig = Config.Bind(CompatibilityModName, "TeamMarkerType", 1, "Team Marker Type");
 
-            ConfigManager.EnemyEnabledConfig = Config.Bind(CompatibilityModName, "EnemyEnabled", false, "Enemy Marker Enabled");
-            ConfigManager.EnemyHeightConfig = Config.Bind(CompatibilityModName, "EnemyHeight", 0.75f, "Enemy Marker Height");
-            ConfigManager.EnemyWidthConfig = Config.Bind(CompatibilityModName, "EnemyWidth", 0.75f, "Enemy Marker Width");
+            ConfigController.EnemyEnabledConfig = Config.Bind(CompatibilityModName, "EnemyEnabled", false, "Enemy Marker Enabled");
+            ConfigController.EnemyHeightConfig = Config.Bind(CompatibilityModName, "EnemyHeight", 0.75f, "Enemy Marker Height");
+            ConfigController.EnemyWidthConfig = Config.Bind(CompatibilityModName, "EnemyWidth", 0.75f, "Enemy Marker Width");
+            ConfigController.EnemyBloomConfig = Config.Bind(CompatibilityModName, "EnemyBloom", 3f, "Enemy Marker Bloom");
+            ConfigController.EnemyMarkerTypeConfig = Config.Bind(CompatibilityModName, "EnemyMarkerType", 1, "Enemy Marker Type");
         }
     }
 }
